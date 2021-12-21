@@ -13,7 +13,7 @@ theta2_ddot= ((cos(theta2)/(l2))*x_ddot)-(g*sin(theta2))/(l2);
 %%Calculate A B C D using jacobian funcions
 f=[x_dot x_ddot theta1dot theta1_ddot  theta2dot theta2_ddot ];
 a=jacobian(f,u);
-A=double(simplify((subs(a,[theta1 theta2 theta1dot theta2dot F M m1 m2 g l1 l2 x_dot x],[0 0 0 0 F 1000 100 100 9.81 20 10 0 0]))));
+A=double(simplify((subs(a,[theta1 theta2 theta1dot theta2dot F M m1 m2 g l1 l2 x_dot x],[0 0 0 0 F 1000 100 100 9.81 20 10 0 0]))))
 b=jacobian(f,F);
 B=double(simplify((subs(b,[theta1 theta2 theta1dot theta2dot F M m1 m2 g l1 l2 x_dot x],[0 0 0 0 F 1000 100 100 9.81 20 10 0 0]))));
 c=jacobian([x theta1 theta2],u);
@@ -28,7 +28,7 @@ Control=[B A*B A^2*B A^3*B A^4*B A^5*B];
 %%
 %%LQR and step response
 Q=diag([10000,10,10000,10,10000,10]);
-R=0.001;
+R=0.01;
 K=lqr(A,B,Q,R);
 sys=ss((A-B*K),B,C,D);
 %5step(sys);
@@ -46,10 +46,10 @@ subplot(3,1,1);
 plot(t,i(:,1));
 title('Cart position (m)');
 subplot(3,1,2);
-plot(t,i(:,2));
+plot(t,i(:,3));
 title('theta1 (radian)');
 subplot(3,1,3);
-plot(t,i(:,3));
+plot(t,i(:,2));
 title('theta2 (radian)');
 
 %%lypunov function part
