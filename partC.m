@@ -21,4 +21,4 @@ C=(subs(c,[theta1 theta2 theta1dot theta2dot F M m1 m2 g l1 l2 x_dot x],[0 0 0 0
 
 d=jacobian([x theta1 theta2],F);
 D=(subs(d,[theta1 theta2 theta1dot theta2dot F M m1 m2 g l1 l2 x_dot x],[0 0 0 0 F M m1 m2 g l1 l2 0 0]))
-
+Condition=det([B A*B A^2*B A^3*B A^4*B A^5*B])
